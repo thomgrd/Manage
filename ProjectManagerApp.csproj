@@ -1,0 +1,372 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>ProjectManagerApp</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	
+	
+
+		<!-- Remplacez le texte par une Image -->
+		
+			<!-- Modifier l'icône par défaut pour Android -->
+			<AndroidPackageIcon>@mipmap/logoapp</AndroidPackageIcon>
+
+			<!-- Modifier l'icône par défaut pour iOS -->
+			<iOSAppIconAssets>Assets.xcassets/AppIcon.appiconset</iOSAppIconAssets>
+
+		 
+		
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.projectmanagerapp</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Platforms>AnyCPU;ARM64</Platforms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|ARM64'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+
+		
+
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\logoappicon.png" />
+		<!-- Splash Screen 
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" /> -->
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\layout\**" />
+	  <Compile Remove="Platforms\Android\Resources\layout\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Resources\layout\**" />
+	  <MauiCss Remove="Platforms\Android\Resources\layout\**" />
+	  <MauiXaml Remove="Platforms\Android\Resources\layout\**" />
+	  <None Remove="Platforms\Android\Resources\layout\**" />
+	</ItemGroup>
+
+
+	
+
+
+	<ItemGroup>
+	  <Compile Remove="AppShell.xaml.cs" />
+	  <Compile Remove="Models\Tag.cs" />
+	  <Compile Remove="Resources\Fonts\ProjetsPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiFont Remove="Resources\Fonts\ProjetsPage.xaml" />
+	  <MauiFont Remove="Resources\Fonts\ProjetsPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\tag_icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="AppShell.xaml" />
+	  <MauiXaml Remove="Resources\Fonts\ProjetsPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\AppIcon\logoappicon.png" />
+	  <None Remove="Resources\Fonts\Lato-Black.ttf" />
+	  <None Remove="Resources\Fonts\Lato-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\Lato-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Lato-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\Lato-Italic.ttf" />
+	  <None Remove="Resources\Fonts\Lato-Light.ttf" />
+	  <None Remove="Resources\Fonts\Lato-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Black - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-BlackItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Bold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-BoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraBold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraBoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraLight - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraLightItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Italic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Light - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-LightItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Medium - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-MediumItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Regular - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-SemiBold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-SemiBoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Condensed-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Black - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-BlackItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Bold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-BoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraBold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraBoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraLight - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraLightItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Italic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Light - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-LightItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Medium - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-MediumItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Regular - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-SemiBold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-SemiBoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_Expanded-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Black - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-BlackItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Bold - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-BoldItalic - Copier.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiCondensed-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_10pt_SemiExpanded-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Condensed-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_Expanded-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiCondensed-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-Black.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-Bold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-ExtraBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-ExtraLightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-Italic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-Light.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-LightItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-Medium.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-Regular.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\NunitoSans_7pt_SemiExpanded-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-Black.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-BlackItalic.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-Bold.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-BoldItalic.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-Italic.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-Medium.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-MediumItalic.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-Regular.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\PlayfairDisplay-SemiBoldItalic.ttf" />
+	  <None Remove="Resources\Images\delete_icon.svg" />
+	  <None Remove="Resources\Images\edition_icon.svg" />
+	  <None Remove="Resources\Images\icon_search.svg" />
+	  <None Remove="Resources\Images\return_icon.svg" />
+	  <None Remove="Resources\Images\tag_icon.svg" />
+	  
+	  
+	</ItemGroup>
+	
+
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="EditProjetPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="HeaderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="OnboardingPage1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="OnboardingPage2.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="OnboardingPage3.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ProjetsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="TachesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

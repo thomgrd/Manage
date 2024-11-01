@@ -1,0 +1,11 @@
+﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectManagerApp.App"
+              NavigationPage.HasNavigationBar="False">
+    <Application.Resources>
+        <!-- Ajoutez ici vos ressources globales si nécessaire -->
+        <ResourceDictionary>
+            <!-- Autres ressources peuvent être ajoutées ici si besoin -->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

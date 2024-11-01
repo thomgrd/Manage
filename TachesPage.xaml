@@ -1,0 +1,146 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectManagerApp.Pages.TachesPage"
+             Title="Liste des Tâches"
+              NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Titre du projet avec icône de retour, centré -->
+        <Grid Grid.Row="0" Padding="10" BackgroundColor="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ImageButton Source="return_icon.svg"
+                         Clicked="OnRetourProjetClicked"
+                         BackgroundColor="Transparent"
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center" />
+
+            <Label x:Name="NomProjet"
+                   Grid.Column="1"
+                   FontAttributes="Bold"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <!-- Espace fictif pour équilibrer l'alignement -->
+            <BoxView Grid.Column="2"
+                     WidthRequest="30"
+                     HeightRequest="30"
+                     HorizontalOptions="End"
+                     Opacity="0" />
+        </Grid>
+
+        <!-- Liste des tâches dans un ScrollView -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="10">
+                <CollectionView x:Name="TachesListView"
+                                ItemsSource="{Binding Taches}"
+                                SelectionMode="None"
+                                BackgroundColor="Transparent">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" Margin="5" IsVisible="{Binding IsVisible}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Case à cocher -->
+                                <CheckBox Grid.Column="0"
+                                          IsChecked="{Binding EstTerminee, Mode=TwoWay}"
+                                          CheckedChanged="OnCheckBoxCheckedChanged"
+                                          HorizontalOptions="Start"
+                                          VerticalOptions="Center"/>
+
+                                <!-- Nom de la tâche cliquable -->
+                                <StackLayout Grid.Column="1" Orientation="Vertical" Spacing="5">
+                                    <Label Text="{Binding Nom}"
+                                           FontSize="Large"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnTaskNameTapped" CommandParameter="{Binding .}" />
+                                        </Label.GestureRecognizers>
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                                <Setter Property="TextColor" Value="DarkRed"/>
+                                                <Setter Property="TextDecorations" Value="Underline"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </StackLayout>
+
+                                <!-- Bouton de suppression -->
+                                <ImageButton Grid.Column="2"
+                                             Source="delete_icon.svg"
+                                             Clicked="OnSupprimerTacheClicked"
+                                             CommandParameter="{Binding .}"
+                                             BackgroundColor="Transparent"
+                                             WidthRequest="30"
+                                             HeightRequest="30"
+                                             HorizontalOptions="End" />
+
+                                <!-- Triggers pour la couleur de fond -->
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid" Binding="{Binding EstTerminee}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="LightGreen"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Grid" Binding="{Binding EstTerminee}" Value="False">
+                                        <Setter Property="BackgroundColor" Value="Salmon"/>
+                                    </DataTrigger>
+                                </Grid.Triggers>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Boutons fixes en bas de la page -->
+        <Grid Grid.Row="2" Padding="10" BackgroundColor="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Bouton Ajouter une Tâche -->
+            <Button x:Name="AjouterTacheButton"
+                    Text="Ajouter une Tâche"
+                    Clicked="OnAjouterTacheClicked"
+                    BackgroundColor="Purple"
+                    FontFamily="LatoLight"
+                    FontSize="12"
+                    TextColor="White"
+                    Grid.Column="0"
+                    VerticalOptions="End"
+HorizontalOptions="Center"/>
+
+            <!-- Bouton Afficher Tâches Terminées -->
+            <Button x:Name="AfficherTermineesButton"
+                    Text="Afficher Tâches Terminées"
+                    Clicked="OnAfficherTermineesClicked"
+                    FontFamily="LatoLight"
+                    FontSize="12"
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    Grid.Column="1" 
+                     VerticalOptions="End"
+ HorizontalOptions="Center"/>
+        </Grid>
+    </Grid>
+</ContentPage>

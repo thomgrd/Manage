@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProjectManagerApp"
+             x:Class="ProjectManagerApp.HeaderView">
+
+    <StackLayout Orientation="Horizontal" VerticalOptions="Start" Padding="10" BackgroundColor="Transparent">
+        <!-- Ajouter le logo -->
+        <Image Source="taskminder.png" WidthRequest="40" HeightRequest="40">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLogoTapped" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <!-- Ajouter le titre de l'application -->
+        <Label Text="Task Minder"  FontFamily="NunitoCondensedBold"
+ FontSize="30"
+ TextColor="Black"
+ HorizontalOptions="Center"
+ VerticalOptions="Center" Margin="10,0,0,0"  />
+    </StackLayout>
+
+</ContentView>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProjectManagerApp"
+             x:Class="ProjectManagerApp.MainPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <!-- Définir les lignes de la grille -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Inclure la HeaderView en haut de la page -->
+        <local:HeaderView Grid.Row="0" />
+
+        <!-- Formulaire pour entrer le nom de l'entreprise si nécessaire -->
+        <StackLayout x:Name="CompanyForm" Grid.Row="1" IsVisible="False" Padding="20" Spacing="15" VerticalOptions="CenterAndExpand">
+            <Label Text="Entrez le nom de votre entreprise :"
+                   FontSize="20"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Entry x:Name="CompanyNameEntry"
+                   Placeholder="Nom de l'entreprise"
+                   FontSize="18"
+                   TextColor="Black"
+                   PlaceholderColor="Gray"
+                   HorizontalOptions="Center" />
+            <Button Text="Enregistrer"
+                    FontFamily="LatoLight"
+                    FontSize="16"
+                    BackgroundColor="Purple"
+                    TextColor="White"
+                    Clicked="OnSaveCompanyNameClicked"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+        </StackLayout>
+
+        <!-- Contenu principal de la page, visible après l'enregistrement du nom -->
+        <StackLayout x:Name="MainContent" Grid.Row="1" IsVisible="True" Padding="20" VerticalOptions="CenterAndExpand">
+            <!-- Logo de l'application avec animation -->
+            <Image x:Name="LogoImage"
+                   Source="taskminder.png"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   HorizontalOptions="Center" />
+
+            <!-- Nom de l'entreprise au centre de la page -->
+            <Label x:Name="CompanyNameLabel"
+                   FontFamily="NunitoCondensedRegular"
+                   FontSize="24"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   Margin="0,20,0,20"/>
+
+            <!-- Bouton pour naviguer vers les projets avec animation -->
+            <Button x:Name="ProjectsButton"
+                    Text="Projets"
+                    FontFamily="LatoLight"
+                    FontSize="16"
+                    BackgroundColor="Purple"
+                    TextColor="White"
+                    Clicked="OnNavigateToProjetPageClicked"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center" />
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,46 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectManagerApp.Pages.OnboardingPage3">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Contenu d'onboarding pour tâches et navigation -->
+            <StackLayout Grid.Row="0" Spacing="20" VerticalOptions="Center">
+                <Label Text="Navigation et Tâches"
+                       FontFamily="PlayfairBold" FontSize="30" TextColor="Black"
+                       HorizontalOptions="Center" />
+
+                <StackLayout Spacing="10" Padding="0,10,0,10">
+                    <Label Text="• Utilisez le bouton 'Retour' pour revenir à la page des projets."
+                           FontFamily="LatoRegular" FontSize="18" TextColor="Gray"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+                    <Label Text="• Vous pouvez ajouter des tâches pour chaque projet. Chaque tâche peut avoir un titre et une description spécifique."
+                           FontFamily="LatoRegular" FontSize="18" TextColor="Gray"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+                    <Label Text="• Marquez une tâche comme terminée en cochant la case associée."
+                           FontFamily="LatoRegular" FontSize="18" TextColor="Gray"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+                    <Label Text="• Cliquez sur le nom d'une tâche pour afficher la description associée."
+                           FontFamily="LatoRegular" FontSize="18" TextColor="Gray"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+                    <Label Text="• Pour afficher les tâches terminées, cliquez sur le bouton 'Afficher Tâches Terminées'. Vous pouvez également masquer les tâches terminées à tout moment."
+                           FontFamily="LatoRegular" FontSize="18" TextColor="Gray"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Bouton Terminer -->
+            <Button Text="Terminer" Clicked="OnFinishButtonClicked"
+                    BackgroundColor="Purple" TextColor="White" FontFamily="LatoBold"
+                    Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" Padding="10" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

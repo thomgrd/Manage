@@ -1,0 +1,27 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectManagerApp.Pages.OnboardingPage1">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Contenu d'accueil -->
+            <StackLayout Grid.Row="0" Spacing="20" VerticalOptions="Center">
+                <Label Text="Bienvenue dans l'application de gestion de projets !"
+                       FontFamily="PlayfairBold" FontSize="30" TextColor="Black"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                <Label Text="Suivez ce guide pour découvrir comment naviguer et utiliser les fonctionnalités principales. Nous allons vous montrer comment ajouter et organiser vos projets, gérer les tâches et bien plus encore. Pour retourner à la page principale, cliquez sur le logo en haut à gauche."
+                       FontFamily="LatoRegular" FontSize="18" TextColor="Gray"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            </StackLayout>
+
+            <!-- Bouton suivant -->
+            <Button Text="Suivant" Clicked="OnNextButtonClicked"
+                    BackgroundColor="Purple" TextColor="White" FontFamily="LatoBold"
+                    Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" Padding="10" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

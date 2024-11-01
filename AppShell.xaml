@@ -1,0 +1,34 @@
+<Shell
+    x:Class="ProjectManagerApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ProjectManagerApp.Pages"
+    
+    BackgroundColor="Salmon">
+
+
+
+    <Shell.FlyoutHeader>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Image Source="Resources/Images/taskminder.png" 
+                   HeightRequest="50" 
+                   WidthRequest="50" 
+                   Aspect="AspectFit"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+
+    <TabBar>
+        <ShellContent Title="Projets"
+                      ContentTemplate="{DataTemplate local:ProjetsPage}">
+            <Shell.TitleView>
+                <Label Text="Projets"
+                      FontFamily="PlayfairBold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="White"
+                       FontSize="Title"/>
+            </Shell.TitleView>
+        </ShellContent>
+    </TabBar>
+</Shell>
